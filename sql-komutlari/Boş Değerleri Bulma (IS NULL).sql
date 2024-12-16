@@ -1,0 +1,1 @@
+SELECT * FROM ogrenciler WHERE email IS NULL;
