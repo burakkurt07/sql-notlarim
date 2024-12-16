@@ -14,7 +14,7 @@ Bu repo, üniversitede Veritabanı Yönetimi dersinde aldığım SQL notlarında
 
 ## Kullanım
 
-Bu notlar, SQL öğrenmeye yeni başlayanlardan, temel bilgilerini pekiştirmek isteyenlere kadar herkes için faydalı olabilir. Repo içerisinde yer alan her konu başlığı, SQL dilini daha iyi anlamanıza yardımcı olacak örnekler ve açıklamalar içermektedir.
+Repo içerisinde yer alan her konu başlığı, SQL veritabanı dilini daha iyi anlamanıza yardımcı olacak notlar ve açıklamalar içermektedir.
 
 ## Katkıda Bulunma
 
@@ -22,4 +22,4 @@ Bu repo, herkesin katkıda bulunabileceği açık bir projedir. Eğer bu projeye
 
 ## Lisans
 
-Bu repo, [MIT Lisansı](https://opensource.org/licenses/MIT) ile lisanslanmıştır.
+Bu repo, [MIT Lisansı](https://opensource.org/licenses/MIT) ile lisanslanmıştır. İstediğiniz gibi kullanabilirsiniz!
