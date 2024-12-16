@@ -1,0 +1,145 @@
+SQL Notlarım
+
+Bu doküman, SQL öğrenirken aldığım notlardan oluşmaktadır. Buradaki notlar hem kavramları anlamamı hem de yazdığım sorguları kaydetmemi sağlıyor. Detaylı bir kaynak oluşturmak için 9 ana başlıkta topladım. SQL'i daha iyi kavrayabilmek adına hem teorik hem de pratik bilgiler içerir.
+
+2. Tablo Yapıları
+
+Tablo yapıları, verilerin SQL'de nasıl organize edildiğini belirleyen temel unsurlardır. Bu yapılar verileri anlamlandırmamıza ve doğru ilişkilendirmemize olanak tanır. Her tablonun bir yapısı vardır ve bu yapı, veritabanının düzgün çalışması için büyük önem taşır. Aşağıda tablo yapılarının detaylı açıklamaları ve örnekleri bulunmaktadır.
+
+1. Birincil Anahtar (PRIMARY KEY)
+
+Birincil anahtar, bir tablodaki her kaydı benzersiz şekilde tanımlayan bir sütundur. Her tablo yalnızca bir birincil anahtara sahip olabilir ve bu alan NULL değer içeremez.
+
+Örnek:
+
+CREATE TABLE musteriler (
+    musteri_id INT PRIMARY KEY,
+    isim VARCHAR(100),
+    sehir VARCHAR(50)
+);
+
+Açıklama:
+
+musteri_id birincil anahtar olarak tanımlandı. Her müşteri bu alan sayesinde benzersiz bir şekilde tanımlanır.
+
+isim ve sehir bilgileri müşteriyle ilgili diğer detayları saklar.
+
+2. Yabancı Anahtar (FOREIGN KEY)
+
+Yabancı anahtar, bir tablodaki bir sütunun, başka bir tablodaki birincil anahtarı referans almasını sağlar. Bu, tablolar arasında ilişki kurmak için kullanılır ve veri tutarlılığını artırır.
+
+Örnek:
+
+CREATE TABLE siparisler (
+    siparis_id INT PRIMARY KEY,
+    musteri_id INT,
+    urun VARCHAR(100),
+    FOREIGN KEY (musteri_id) REFERENCES musteriler(musteri_id)
+);
+
+Açıklama:
+
+musteriler tablosundaki musteri_id, siparisler tablosundaki musteri_id tarafından referans alınır.
+
+Bu ilişki, her siparişin bir müşteriye ait olduğunu garanti eder.
+
+3. Varsayılan Değerler (DEFAULT)
+
+Bir sütuna veri eklenmediğinde kullanılacak varsayılan bir değer tanımlamak mümkündür. Varsayılan değer, bir kayıt eklerken sütun için değer sağlanmadığında devreye girer.
+
+Örnek:
+
+CREATE TABLE urunler (
+    urun_id INT PRIMARY KEY,
+    urun_adi VARCHAR(100),
+    stok INT DEFAULT 0
+);
+
+Açıklama:
+
+stok sütunu için varsayılan değer 0 olarak tanımlandı.
+
+Eğer bir ürün eklenirken stok değeri belirtilmezse otomatik olarak 0 atanır.
+
+4. Benzersiz Kısıt (UNIQUE)
+
+UNIQUE kısıtı, bir sütundaki tüm değerlerin benzersiz olmasını sağlar. Aynı tablo içinde birden fazla benzersiz kısıt tanımlanabilir.
+
+Örnek:
+
+CREATE TABLE personel (
+    personel_id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE
+);
+
+Açıklama:
+
+email sütunu benzersiz olarak tanımlandı. Bu sütundaki iki kayıt aynı e-posta adresini içeremez.
+
+5. Not Null (NOT NULL)
+
+NOT NULL kısıtı, bir sütunun NULL değer almasını engeller. Bu, o sütunun mutlaka bir değer içermesi gerektiğini belirtir.
+
+Örnek:
+
+CREATE TABLE odemeler (
+    odeme_id INT PRIMARY KEY,
+    tutar DECIMAL(10, 2) NOT NULL
+);
+
+Açıklama:
+
+tutar sütunu için NOT NULL kısıtı tanımlandı. Bu sütun boş bırakılamaz ve her kayıt için bir değer içermelidir.
+
+6. Otomatik Artış (AUTO_INCREMENT)
+
+Birincil anahtarlar genellikle otomatik olarak artan bir değerle oluşturulur. AUTO_INCREMENT, her yeni kayıt için otomatik bir şekilde artan bir sayı sağlar.
+
+Örnek:
+
+CREATE TABLE islemler (
+    islem_id INT AUTO_INCREMENT PRIMARY KEY,
+    aciklama VARCHAR(200)
+);
+
+Açıklama:
+
+islem_id, her yeni işlem için otomatik olarak artan bir değer alır.
+
+Böylece manuel olarak değer girmeye gerek kalmaz.
+
+7. Varsayılan Değerleri Güncelleme
+
+Varsayılan değerler tablo oluşturulurken tanımlandığı gibi sonradan da değiştirilebilir. Bunun için ALTER komutu kullanılır.
+
+Örnek:
+
+ALTER TABLE urunler ALTER COLUMN stok SET DEFAULT 10;
+
+Açıklama:
+
+urunler tablosundaki stok sütununun varsayılan değeri 10 olarak değiştirildi.
+
+8. Tabloya Yeni Sütun Eklemek
+
+Mevcut bir tabloya yeni bir sütun eklemek için ALTER TABLE komutu kullanılır.
+
+Örnek:
+
+ALTER TABLE personel ADD telefon VARCHAR(15);
+
+Açıklama:
+
+personel tablosuna telefon adında yeni bir sütun eklendi. Bu sütun, personelin telefon numarasını saklamak için kullanılabilir.
+
+9. Tabloyu Silmek (DROP)
+
+Tabloyu tamamen silmek ve tüm verileri kaldırmak için DROP komutu kullanılır. Bu işlem geri alınamaz, bu yüzden dikkatli olunmalıdır.
+
+Örnek:
+
+DROP TABLE islemler;
+
+Açıklama:
+
+islemler tablosunu tüm verileriyle birlikte sildik.

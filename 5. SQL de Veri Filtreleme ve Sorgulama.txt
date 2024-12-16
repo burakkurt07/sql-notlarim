@@ -1,0 +1,85 @@
+5. Veri Filtreleme ve Sorgulama
+
+Veri filtreleme ve sorgulama, SQL’in en güçlü özelliklerindendir. Bu işlemleri anlamak ve uygulamak için aşağıdaki başlıkları incele:
+1. Tüm Veriyi Listele
+
+SELECT * FROM ogrenciler;
+
+Tablodaki tüm veriyi getir. Bu komut genellikle başlangıçta veri görmek için kullanılır.
+2. Belirli Sütunları Listele
+
+SELECT isim, sehir FROM ogrenciler;
+
+Sadece ihtiyacın olan sütunları seçerek sorgunu özelleştir. Bu, gereksiz veriyle uğraşmanı önler.
+3. Koşullu Veri Filtrele (WHERE)
+
+SELECT * FROM ogrenciler  
+WHERE yas > 20;
+
+20 yaşından büyük öğrencileri listele. WHERE koşuluyla veri üzerinde filtreleme yap.
+4. Veriyi Birden Fazla Koşula Göre Filtrele (AND, OR)
+
+SELECT * FROM ogrenciler  
+WHERE sehir = 'Istanbul' AND yas < 25;
+
+AND ve OR kullanarak filtreleri birleştir. Örneğin, hem İstanbul'da olan hem de 25 yaşından küçük öğrencileri getir.
+5. Veriyi Belirli Bir Değer Aralığına Göre Filtrele (BETWEEN)
+
+SELECT * FROM ogrenciler  
+WHERE yas BETWEEN 18 AND 24;
+
+18 ile 24 yaş arasındaki öğrencileri getir. Bu yöntem aralıkları tanımlarken çok kullanışlıdır.
+6. Belirli Bir Kelimeyle Eşleşen Veriyi Bul (LIKE)
+
+SELECT * FROM ogrenciler  
+WHERE isim LIKE 'A%';
+
+İsmi "A" harfiyle başlayan öğrencileri getir. % sembolünü kullanarak eşleşme biçimini tanımla.
+
+Not:
+
+    %: Herhangi bir karakter dizisini temsil eder.
+    _: Tek bir karakteri temsil eder.
+
+7. Belirli Değerlere Göre Veri Filtrele (IN)
+
+SELECT * FROM ogrenciler  
+WHERE sehir IN ('Istanbul', 'Ankara');
+
+Birden fazla değeri filtrele. Şehir bilgisi İstanbul veya Ankara olan öğrencileri getir.
+8. Sonuçları Sırala (ORDER BY)
+
+SELECT * FROM ogrenciler  
+ORDER BY yas ASC;
+
+Sonuçları yaşa göre artan sırada listele. DESC kullanırsan azalan sırada sıralarsın.
+9. Sonuçları Sınırla (LIMIT)
+
+SELECT * FROM ogrenciler  
+LIMIT 5;
+
+Tablodan yalnızca ilk 5 kaydı getir. Büyük veri kümelerinde bu komutu kullanarak sorguları daha hızlı çalıştır.
+10. Yinelenen Veriyi Kaldır (DISTINCT)
+
+SELECT DISTINCT sehir FROM ogrenciler;
+
+Tekrarlayan şehir isimlerini listelemeden kaldır. Bu, benzersiz değerleri görmek için idealdir.
+
+Not:
+
+    Eğer bir sütunda aynı veri birden fazla kez bulunuyorsa, sadece bir kez görünür.
+
+11. Veriyi Toplu Olarak Grupla (GROUP BY)
+
+SELECT sehir, COUNT(*)  
+FROM ogrenciler  
+GROUP BY sehir;
+
+Şehre göre gruplama yap ve her şehirdeki öğrenci sayısını getir. Bu, istatistiksel analizler için çok önemlidir.
+
+Not:
+
+    GROUP BY, genellikle COUNT, SUM, AVG, MAX, MIN gibi fonksiyonlarla birlikte kullanılır.
+
+Kod Açıklaması:
+Bir öğrenci bu kodları kullanarak büyük veri kümelerinden anlamlı bilgileri hızlıca çıkarabilir. Örneğin, "kaç kişi bir şehirde yaşıyor?" veya "en çok kullanılan yaş aralığı nedir?" gibi soruların cevabını bulabilirsin. Filtreleme yaparken koşulları dikkatlice yaz. Yanlış koşullar yanlış veriler getirebilir. 😊

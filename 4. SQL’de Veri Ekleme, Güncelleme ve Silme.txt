@@ -1,0 +1,104 @@
+SQL’in veri manipülasyonu yetenekleriyle, tablolarınıza veri ekleyebilir, var olan veriyi güncelleyebilir ve gerekirse silebilirsiniz. İşte bu işlemler için detaylı başlıklar:
+1. Tabloya Tek Bir Veri Ekleme
+
+INSERT INTO ogrenciler (isim, yas, sehir)  
+VALUES ('Ali Can', 22, 'Istanbul');
+
+Bu sorgu, belirtilen sütunlara bir kayıt ekler. Eğer tüm sütunlar dolacaksa sütun isimlerini yazmak zorunlu değildir.
+2. Tabloya Birden Fazla Veri Ekleme
+
+INSERT INTO ogrenciler (isim, yas, sehir)  
+VALUES  
+('Elif Yılmaz', 20, 'Ankara'),  
+('Mert Demir', 25, 'Izmir');
+
+Bir sorguda birden fazla kayıt ekleyebilirsiniz, bu büyük miktarda veri için çok pratiktir.
+3. Bir Sütunu Güncelleme
+
+UPDATE ogrenciler  
+SET yas = 23  
+WHERE isim = 'Ali Can';
+
+Verilen koşula uyan kayıtların yaşını 23 olarak günceller. WHERE kullanmazsanız tüm kayıtlar güncellenir. Bu konuda dikkatli olun.
+4. Birden Fazla Sütunu Güncelleme
+
+UPDATE ogrenciler  
+SET sehir = 'Bursa', yas = 21  
+WHERE isim = 'Elif Yılmaz';
+
+Birden fazla sütunda değişiklik yapabilirsiniz. Değişikliklerin yalnızca belirli kayıtlara uygulanmasını sağlamak için WHERE kullanın.
+5. Tüm Veriyi Silmek
+
+DELETE FROM ogrenciler;
+
+Bu sorgu, tabloda bulunan tüm veriyi siler. WHERE kullanmadığınız için seçici değildir. Not: Bu işlem tablodaki tüm veriyi kaybedeceğiniz anlamına gelir, dikkatli olun.
+6. Belirli Bir Kaydı Silmek
+
+DELETE FROM ogrenciler  
+WHERE isim = 'Mert Demir';
+
+Sadece belirtilen koşula uyan kayıtları siler. Bu, tabloyu tamamen silmek yerine belirli veriyi kaldırmak için faydalıdır.
+7. Veri Eklerken Varsayılan Değer Kullanma
+
+INSERT INTO ogrenciler (isim, sehir)  
+VALUES ('Ayşe Çelik', 'Antalya');
+
+Tabloda yaş için bir varsayılan değer tanımlandıysa (DEFAULT 18 gibi), bu sütun otomatik olarak varsayılan değeri alır.
+8. Eklenen Verinin ID’sini Görme
+
+INSERT INTO ogrenciler (isim, yas, sehir)  
+VALUES ('Zeynep Kaya', 24, 'Izmir')  
+RETURNING id;
+
+Yeni eklenen kaydın benzersiz kimliğini döndürür. Bu, özellikle ilişkilendirilmiş tablolar için önemlidir.
+9. Tüm Veriyi Yeniden Sıfırlama
+
+TRUNCATE TABLE ogrenciler;
+
+DELETE sorgusuna benzer şekilde tüm veriyi siler, ancak daha hızlıdır ve tablo yapısını değiştirmez.
+10. Koşullu Güncellemeler
+
+UPDATE ogrenciler  
+SET sehir = 'Istanbul'  
+WHERE yas > 22;
+
+Sadece yaşı 22’den büyük olan öğrencilerin şehir bilgisini değiştirir.
+11. Belirli Verileri Silmek için NOT Operatörü Kullanma
+
+DELETE FROM ogrenciler  
+WHERE sehir != 'Ankara';
+
+Ankara dışında kalan tüm kayıtları siler. Bu, tam ters koşullar için kullanışlıdır.
+12. Eklenen Veriyi Kontrol Etmek için Alt Sorgu Kullanma
+
+INSERT INTO ogrenciler (isim, yas, sehir)  
+SELECT 'Mehmet', 30, 'Istanbul'  
+WHERE NOT EXISTS (SELECT * FROM ogrenciler WHERE isim = 'Mehmet');
+
+Bu sorgu, Mehmet isminde bir kayıt yoksa yeni bir veri ekler. Aynı veriyi tekrar eklememek için kullanışlıdır.
+13. Silinen Veriyi Geri Getirmek
+
+Normal bir SQL sorgusuyla silinen veri geri getirilemez. Ancak, veritabanınızda yedekleme (backup) mekanizmaları varsa, önceki bir duruma geri dönebilirsiniz.
+Not: Öğrencilere tavsiye, silme işlemi yapmadan önce yedek almayı öğrenmek.
+14. Veriyi Yedekleme (Backup)
+
+Çoğu veritabanı yönetim sistemi, veriyi dışa aktarma seçeneği sunar. Örneğin, MySQL'de:
+
+mysqldump -u username -p database_name > backup.sql
+
+Bu komut, mevcut veritabanını bir dosyaya kaydeder.
+15. Tabloya Varsayılan Değer Eklemek
+
+ALTER TABLE ogrenciler  
+MODIFY yas INT DEFAULT 18;
+
+Bir sütun için varsayılan değer tanımlayarak eklenen yeni kayıtların otomatik bir değer almasını sağlayabilirsiniz.
+
+
+16. Veri Manipülasyonunda Performans İpuçları
+
+    Çok sayıda kayıt eklemeden önce tabloları dizinlemek performansı artırır.
+    Veri silerken daha hızlı işlem için koşullar (örneğin LIMIT) kullanılabilir.
+    Güncelleme ve silme işlemlerinde işlemin yanlış veriyi etkilememesi için her zaman sorguları test et.
+	
+	

@@ -1,0 +1,123 @@
+6. Veri Analitiği ve İleri Düzey Sorgular
+
+Bu başlık altında daha karmaşık sorgularla veri analitiği yapmayı öğren. Olası ve farklı senaryolarla pratik yap.
+1. Toplam Değer Hesaplama (SUM)
+
+SELECT kategori, SUM(satis_miktari) AS toplam_satis  
+FROM urunler  
+GROUP BY kategori;
+
+Her ürün kategorisindeki toplam satış miktarını hesapla. Büyük verilerle çalışırken satış veya stok analizi için bu tür sorguları kullan.
+2. Ortalama Hesaplama (AVG)
+
+SELECT marka, AVG(fiyat) AS ortalama_fiyat  
+FROM araclar  
+GROUP BY marka;
+
+Her araç markası için ortalama fiyatı hesapla. Araç piyasası analizlerinde bu tür sorgular değerlidir.
+3. Maksimum ve Minimum Değer Bulma (MAX, MIN)
+
+SELECT MAX(maas) AS en_yuksek_maas, MIN(maas) AS en_dusuk_maas  
+FROM calisanlar;
+
+En yüksek ve en düşük maaşları tespit et. İnsan kaynakları departmanı bu bilgiyi maaş analizinde kullanabilir.
+4. Belirli Değerlerde Toplam Sayı (COUNT)
+
+SELECT renk, COUNT(*) AS adet  
+FROM mobilyalar  
+GROUP BY renk;
+
+Mobilya renklerine göre toplam adetleri listele. Stok yönetiminde bu sorgu faydalıdır.
+5. Belirli Bir Değerin Oranını Hesapla
+
+SELECT  
+    kategori,  
+    (SUM(satis_miktari) * 100.0 / (SELECT SUM(satis_miktari) FROM urunler)) AS satis_orani  
+FROM urunler  
+GROUP BY kategori;
+
+Her kategorinin toplam satış içindeki oranını hesapla. Pazar payını analiz etmek için bu tür bir sorgu kullan.
+6. İlk ve Son Kayıtları Getir (LIMIT, OFFSET)
+
+SELECT * FROM siparisler  
+ORDER BY siparis_tarihi ASC  
+LIMIT 1;  -- İlk siparişi getir
+
+SELECT * FROM siparisler  
+ORDER BY siparis_tarihi DESC  
+LIMIT 1;  -- Son siparişi getir
+
+Siparişlerin zamanına göre ilk ve son kaydı bul. Sipariş yönetiminde bu tür bilgiler kritiktir.
+7. Veri Gruplarına Koşul Uygulama (HAVING)
+
+SELECT tedarikci, SUM(urun_adedi) AS toplam_urun  
+FROM urunler  
+GROUP BY tedarikci  
+HAVING toplam_urun > 500;
+
+500'den fazla ürün sağlayan tedarikçileri listele. HAVING, gruplama sonrası koşullar belirlemek için kullanılır.
+8. Çakışan Değerleri Bul (SELF JOIN)
+
+SELECT p1.proje_adi, p2.proje_adi  
+FROM projeler p1  
+JOIN projeler p2  
+ON p1.personel_id = p2.personel_id  
+WHERE p1.proje_id <> p2.proje_id;
+
+Bir kişinin birden fazla projede çalıştığını tespit et. Proje yönetimi raporlarında bu tür bilgileri kullanabilirsin.
+9. Tabloları Birleştirerek Veri Çekme (JOIN)
+
+SELECT musteriler.isim, siparisler.siparis_tarihi, siparisler.tutar  
+FROM musteriler  
+JOIN siparisler  
+ON musteriler.id = siparisler.musteri_id;
+
+Müşteri ve sipariş bilgilerini birleştirerek daha anlamlı bir rapor oluştur.
+10. Eksik Veriyi Bul (NULL Kontrolü)
+
+SELECT * FROM urunler  
+WHERE stok IS NULL;
+
+Stok bilgisi eksik olan ürünleri listele. Veritabanındaki hatalı kayıtları düzeltmek için bu yöntemi uygula.
+11. Zaman Analizleri Yap (DATE, TIME)
+
+SELECT EXTRACT(YEAR FROM siparis_tarihi) AS yil, COUNT(*) AS siparis_sayisi  
+FROM siparisler  
+GROUP BY yil;
+
+Siparişlerin yıllara göre dağılımını bul. Zaman temelli analizlerde EXTRACT fonksiyonunu sıkça kullan.
+12. Alt Sorgularla Detaylı Analiz Yap
+
+SELECT isim, maas  
+FROM calisanlar  
+WHERE maas > (SELECT AVG(maas) FROM calisanlar);
+
+Maaşı ortalamanın üzerinde olan çalışanları bul. Alt sorgularla karmaşık analizler yapmayı öğren.
+13. Veriyi Yeniden Adlandır (ALIAS)
+
+SELECT isim AS personel_adi, sehir AS ikametgah  
+FROM calisanlar;
+
+Sonuç sütunlarına daha açıklayıcı adlar vererek raporları daha okunabilir hale getir.
+14. Belirli Bir Süreçteki Toplam Değeri Bul
+
+SELECT kategori, SUM(fiyat) AS toplam_fiyat  
+FROM urunler  
+WHERE satis_tarihi BETWEEN '2023-01-01' AND '2023-12-31'  
+GROUP BY kategori;
+
+Belirli bir yıl içindeki toplam satışları analiz et.
+15. Veri Dönüşümleri Yap (CAST)
+
+SELECT isim, CAST(maas AS CHAR) AS maas_string  
+FROM calisanlar;
+
+Maaşı metne dönüştürerek işlem yap. Veri türü dönüşümleri bazen gerekli olabilir.
+Kod Açıklaması:
+
+    Yukarıdaki sorguları anlamaya çalış ve örneklerini çeşitlendir.
+    Zaman analizlerinde veri türü doğru olmalı. Örneğin, DATE formatı şart.
+    JOIN ve HAVING ile veri analizi yaparken tablolar arası ilişkileri kavramalısın.
+	
+	
+	

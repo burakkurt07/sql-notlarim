@@ -1,0 +1,129 @@
+3. SQL Sorguları
+
+veritabanından bilgi çekmek, düzenlemek ve analiz etmek vb. için
+1. Basit Veri Çekme
+
+SELECT * FROM ogrenciler;
+
+    Açıklama: ogrenciler tablosundaki tüm sütunları ve kayıtları getirir.
+
+2. Belirli Sütunları Çekme
+
+SELECT isim, yas FROM ogrenciler;
+
+    Açıklama: Yalnızca isim ve yas sütunlarını getirir. Tüm tabloyu almak yerine belirli alanları seçebilirsiniz.
+
+3. Koşullu Veri Çekme (WHERE)
+
+SELECT * FROM ogrenciler WHERE yas > 20;
+
+    Açıklama: Yaşı 20'den büyük olan öğrencileri filtreler.
+
+4. Veri Sıralama (ORDER BY)
+
+SELECT * FROM ogrenciler ORDER BY yas ASC;
+
+    Açıklama: Öğrencileri yaşlarına göre artan sırayla sıralar. DESC kullanırsanız azalan sırada sıralar.
+
+5. Gruplama ve Toplama İşlemleri (GROUP BY)
+
+SELECT sehir, COUNT(*) AS ogrenci_sayisi  
+FROM ogrenciler  
+GROUP BY sehir;
+
+    Açıklama: Her şehirde kaç öğrenci olduğunu gösterir.
+
+6. Gruplanmış Veriyi Filtreleme (HAVING)
+
+SELECT sehir, COUNT(*) AS ogrenci_sayisi  
+FROM ogrenciler  
+GROUP BY sehir  
+HAVING COUNT(*) > 5;
+
+    Açıklama: Sadece 5'ten fazla öğrencisi olan şehirleri listeler.
+
+7. Toplama Fonksiyonları
+
+    Toplam Alma (SUM):
+
+SELECT SUM(yas) AS toplam_yas FROM ogrenciler;
+
+    Açıklama: Tüm öğrencilerin yaşlarının toplamını getirir.
+
+    Ortalama Hesaplama (AVG):
+
+SELECT AVG(yas) AS ortalama_yas FROM ogrenciler;
+
+    Açıklama: Yaşların ortalamasını hesaplar.
+
+    Minimum ve Maksimum Değerler (MIN, MAX):
+
+SELECT MIN(yas) AS en_kucuk_yas, MAX(yas) AS en_buyuk_yas FROM ogrenciler;
+
+8. Metin Arama (LIKE)
+
+SELECT * FROM ogrenciler WHERE isim LIKE 'A%';
+
+    Açıklama: İsmi "A" harfiyle başlayan öğrencileri getirir. % herhangi bir karakter dizisini temsil eder.
+
+9. Boş Değerleri Bulma (IS NULL)
+
+SELECT * FROM ogrenciler WHERE email IS NULL;
+
+    Açıklama: E-posta adresi olmayan öğrencileri listeler.
+
+10. İç İlişkilendirme (INNER JOIN)
+
+SELECT ogrenciler.isim, kitaplar.kitap_adi  
+FROM ogrenciler  
+INNER JOIN odunc ON ogrenciler.id = odunc.ogrenci_id  
+INNER JOIN kitaplar ON odunc.kitap_id = kitaplar.id;
+
+    Açıklama: Öğrencilerle ödünç alınan kitaplar arasındaki ilişkileri gösterir.
+
+11. Sol İlişkilendirme (LEFT JOIN)
+
+SELECT ogrenciler.isim, kitaplar.kitap_adi  
+FROM ogrenciler  
+LEFT JOIN odunc ON ogrenciler.id = odunc.ogrenci_id  
+LEFT JOIN kitaplar ON odunc.kitap_id = kitaplar.id;
+
+    Açıklama: Öğrencilerin ödünç aldığı kitapları gösterir; kitap almadıysa NULL döner.
+
+12. Veriyi Sınırlama (LIMIT)
+
+SELECT * FROM ogrenciler LIMIT 5;
+
+    Açıklama: İlk 5 kaydı getirir. Büyük tablolarla çalışırken performans için kullanışlıdır.
+
+13. Alt Sorgular (Subqueries)
+
+    Tek Değer Dönen Alt Sorgu:
+
+SELECT * FROM ogrenciler WHERE yas > (SELECT AVG(yas) FROM ogrenciler);
+
+    Açıklama: Yaşı ortalamanın üzerinde olan öğrencileri getirir.
+
+    Tablo Dönen Alt Sorgu:
+
+SELECT * FROM ogrenciler WHERE id IN (SELECT ogrenci_id FROM odunc);
+
+    Açıklama: Kitap ödünç alan öğrencileri listeler.
+
+14. Birden Fazla Koşul (AND, OR)
+
+SELECT * FROM ogrenciler WHERE yas > 20 AND sehir = 'Istanbul';
+
+    Açıklama: Yaşı 20'den büyük ve İstanbul'da yaşayan öğrencileri getirir.
+
+15. Farklı Değerleri Listeleme (DISTINCT)
+
+SELECT DISTINCT sehir FROM ogrenciler;
+
+    Açıklama: Tekrarlayan şehirleri bir kez listeleyen sorgudur.
+
+16. Özelleştirilmiş Sütunlar
+
+SELECT isim || ' ' || yas AS ogrenci_bilgisi FROM ogrenciler;
+
+Öğrenci adını ve yaşını birleştirip tek bir sütunda gösterir.
