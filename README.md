@@ -14,7 +14,7 @@ Bu repo, üniversitede Veritabanı Yönetimi dersinde aldığım SQL notlarında
 
 ## Kullanım
 
-Repo içerisinde yer alan her konu başlığı, SQL veritabanı dilini daha iyi anlamanıza yardımcı olacak notlar ve açıklamalar içermektedir.
+Repo içerisinde yer alan her konu başlığı, Veritabanı yönetimi dersinde aldığım notlarımı ve bazı basit kod örneklerimi içermektedir.
 
 ## Katkıda Bulunma
 
